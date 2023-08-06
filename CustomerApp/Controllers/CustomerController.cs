@@ -89,14 +89,10 @@ namespace CustomerApp.Controllers
         {
             try
             {
-                //string data = JsonConvert.SerializeObject(customer.id);
-                //StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
-                //client.BaseAddress = new Uri("https://getinvoices.azurewebsites.net/api/");
-                //var response = client.PutAsync("Customer/", stringContent);
-                client.BaseAddress = new Uri("https://getinvoices.azurewebsites.net/api/Customer");
-                //string data = JsonConvert.SerializeObject(customer);
-                //StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PutAsJsonAsync<Customer>("Customer/", customer);
+                string data = JsonConvert.SerializeObject(customer);
+                StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
+                client.BaseAddress = new Uri("https://getinvoices.azurewebsites.net/api/");
+                var response = client.PutAsync("Customer/", stringContent);
                 response.Wait();
 
                 var testresult = response.Result;
