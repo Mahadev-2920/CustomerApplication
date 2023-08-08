@@ -5,7 +5,7 @@
     ViewData["Title"] = "Customer List";
     var errorMessage = TempData["ErrorMessage"]?.ToString();
     var SuccessMessage = TempData["SuccessMessage"]?.ToString();
-
+    var currency ="$";
 }
 <h3>@ViewData["Title"]</h3>
 @if (!string.IsNullOrWhiteSpace(SuccessMessage))
@@ -79,7 +79,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                     @Html.DisplayFor(modelItem => item.gender)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.balance)
+                    @currency@Html.DisplayFor(modelItem => item.balance)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new {  id=item.id  }) |
@@ -134,5 +134,6 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
         buttons += "' onclick='sort(" + (current + 1) + ")' " + nextButton + ">";
         return buttons;
     }
+
 </script>
 

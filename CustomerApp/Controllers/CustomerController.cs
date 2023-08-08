@@ -1,4 +1,5 @@
 ﻿using CustomerApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Drawing.Imaging;
@@ -12,6 +13,7 @@ namespace CustomerApp.Controllers
         public string successMessage = "";
 
         HttpClient client = new HttpClient();
+        
         [HttpGet]
         public IActionResult Index()
         {
@@ -39,8 +41,6 @@ namespace CustomerApp.Controllers
             try
             {
                 client.BaseAddress = new Uri("https://getinvoices.azurewebsites.net/api/Customer");
-                //string data = JsonConvert.SerializeObject(customer);
-                //StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
                 var response = client.PostAsJsonAsync<Customer>("Customer", customer);
                 response.Wait();
 
