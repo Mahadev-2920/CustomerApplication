@@ -162,47 +162,5 @@ namespace CustomerApp.Controllers
             }
             return View();
         }
-        [HttpGet]
-        public IActionResult GetCustomerList()
-        {
-            List<Customer> customers = new List<Customer>();
-            client.BaseAddress = new Uri("https://getinvoices.azurewebsites.net/api/CreateCustomerList");
-            var response = client.GetAsync("CreateCustomerList");
-            response.Wait();
-            var test = response.Result;
-
-            if (test.IsSuccessStatusCode)
-            {
-                string display = test.Content.ReadAsStringAsync().Result;
-                customers = JsonConvert.DeserializeObject<List<Customer>>(display);
-            }
-            return View(customers);
-        }
-
-        [HttpPost]
-        public IActionResult GetCustomerList(Customer customer)
-        {
-            try
-            {
-                client.BaseAddress = new Uri("https://getinvoices.azurewebsites.net/api/Customer");
-                string data = JsonConvert.SerializeObject(customer);
-                StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PostAsync("Customer", stringContent);
-                response.Wait();
-
-                var testresult = response.Result;
-                if (testresult.IsSuccessStatusCode)
-                {
-                    TempData["SuccessMessage"] = "Customer Added Successfuly !";
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = ex.Message;
-                return View();
-            }
-            return View();
-        }
     }
 }
