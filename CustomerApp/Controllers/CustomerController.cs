@@ -108,8 +108,6 @@ namespace CustomerApp.Controllers
                 TempData["ErrorMessage"] = ex.Message;
                 return View();
             }
-
-
         }
 
         [HttpGet]
